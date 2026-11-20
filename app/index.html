@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Coast Cover Studio</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main class="app">
+  <aside class="panel">
+    <h1>Neon Coast<br><span>Cover Studio</span></h1>
+    <p class="lede">Your photos, a Vice-City sunset grade, and cover lettering — exported as a share-ready PNG. Everything runs on this machine; no photo ever leaves it.</p>
+
+    <section>
+      <h2>1 · Photos</h2>
+      <label class="drop">Add photos<input id="photos" type="file" accept="image/*" multiple hidden></label>
+      <div class="row">
+        <button type="button" data-sample="pier">Sample · Pier</button>
+        <button type="button" data-sample="boulevard">Sample · Boulevard</button>
+      </div>
+      <div class="row">
+        <button type="button" id="fillScenes">Fill panels with scenes</button>
+        <button type="button" id="shuffleScenes">Shuffle scenes</button>
+      </div>
+      <p class="hint">Click a panel on the cover to select it, drag it to reframe, and use the zoom slider. New photos fill the selected panel first, then the empty ones.</p>
+      <label>Panel zoom <input id="zoom" type="range" min="1" max="3" step="0.01" value="1"></label>
+    </section>
+
+    <section>
+      <h2>2 · Layout &amp; grade</h2>
+      <label>Layout <select id="layout"></select></label>
+      <label>Grade <select id="grade"></select></label>
+      <div class="row">
+        <label class="check"><input id="grain" type="checkbox" checked> Film grain</label>
+        <label class="check"><input id="halftone" type="checkbox" checked> Halftone title</label>
+      </div>
+    </section>
+
+    <section>
+      <h2>3 · Lettering</h2>
+      <label>Title <input id="title" type="text" maxlength="24" value="Neon Coast"></label>
+      <label>Subtitle <input id="subtitle" type="text" maxlength="32" value="vice city nights"></label>
+      <label>Caption ribbon <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
+      <div class="row">
+        <label>Heat <input id="stars" type="range" min="0" max="5" step="1" value="4"></label>
+        <label>Badge <input id="badge" type="text" maxlength="4" value="NC"></label>
+      </div>
+    </section>
+
+    <section>
+      <h2>4 · Export</h2>
+      <label>Size
+        <select id="size">
+          <option value="square">Square · 1080 × 1080</option>
+          <option value="portrait">Portrait · 1080 × 1350</option>
+          <option value="wide">Wide · 1920 × 1080</option>
+          <option value="story">Story · 1080 × 1920</option>
+        </select>
+      </label>
+      <div class="row">
+        <button type="button" id="undo">Undo</button>
+        <button type="button" id="redo">Redo</button>
+      </div>
+      <button type="button" id="exportOne" class="primary">Export this size as PNG</button>
+      <button type="button" id="exportAll">Export all four sizes</button>
+      <p id="status" role="status"></p>
+    </section>
+  </aside>
+  <section class="stage">
+    <canvas id="cover" width="1080" height="1080" aria-label="Your cover, live preview"></canvas>
+  </section>
+</main>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
