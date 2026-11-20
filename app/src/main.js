@@ -132,6 +132,15 @@ $('shuffleScenes').addEventListener('click', () => {
   state.panels = state.panels.map((p, i) => (p.img ? p : { scene: order[i % order.length], ox: 0, oy: 0, zoom: 1 }));
   snapshot(); redraw();
 });
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
+  const count = LAYOUTS[state.layout].panels().length;
+  if (e.key === 'ArrowRight') state.selected = (state.selected + 1) % count;
+  else if (e.key === 'ArrowLeft') state.selected = (state.selected + count - 1) % count;
+  else return;
+  syncControls();
+  redraw();
+});
 $('undo').addEventListener('click', () => { if (historyAt > 0) restore(history[--historyAt]); });
 $('redo').addEventListener('click', () => { if (historyAt < history.length - 1) restore(history[++historyAt]); });
 

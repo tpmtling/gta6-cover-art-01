@@ -12,6 +12,7 @@ export const GRADES = {
   golden: { label: 'Golden Hour', shadow: [52, 24, 10],  mid: [226, 122, 44], high: [255, 232, 168], sat: 1.15, con: 1.05, map: 0.5 },
   pastel: { label: 'Miami Pastel',shadow: [70, 60, 110], mid: [240, 160, 190],high: [210, 245, 235], sat: 1.05, con: 0.98, map: 0.42 },
   ink:    { label: 'Ink Poster',  shadow: [16, 14, 26],  mid: [120, 110, 150],high: [245, 240, 225], sat: 0.55, con: 1.3,  map: 0.6, poster: 5 },
+  retro:  { label: 'VHS Retro',   shadow: [10, 40, 48],  mid: [64, 178, 168], high: [255, 170, 120], sat: 1.35, con: 1.06, map: 0.48 },
   raw:    { label: 'Raw Photo',   shadow: [0, 0, 0],     mid: [128, 128, 128],high: [255, 255, 255], sat: 1.0,  con: 1.0,  map: 0 },
 };
 
@@ -36,6 +37,9 @@ export const LAYOUTS = {
     { rect: [0.06, 0.05, 0.55, 0.52], tilt: -0.045 },
     { rect: [0.42, 0.30, 0.55, 0.52], tilt: 0.05 },
     { rect: [0.16, 0.58, 0.55, 0.40], tilt: -0.02 },
+  ] },
+  trio: { label: 'Banner Trio · 3', titleH: 0.20, panels: () => [
+    [0, 0, 1 / 3, 1], [1 / 3, 0, 1 / 3, 1], [2 / 3, 0, 1 / 3, 1],
   ] },
   poster: { label: 'Poster · 3', titleH: 0.30, panels: () => [
     [0, 0, 1, 0.55], [0, 0.55, 0.5, 0.45], [0.5, 0.55, 0.5, 0.45],
@@ -400,11 +404,9 @@ export function renderCover(canvas, st, images) {
     cctx.save();
     cctx.beginPath(); cctx.rect(innerPad, innerPad, w - innerPad * 2, h - innerPad * 2); cctx.clip();
     if (data && data.img && images[data.img]) {
-      drawPhotoCover(cctx, images[data.img], -innerPad * 0, -innerPad * 0, w, h, data);
-      // Re-crop inside the clip: draw shifted so the clip trims the border.
+      drawPhotoCover(cctx, images[data.img], 0, 0, w, h, data);
     } else {
       drawScene(cctx, (data && data.scene) || SCENE_KINDS[i % SCENE_KINDS.length], 0, 0, w, h, 11 + i * 7);
-      if (data && (data.ox || data.oy)) { /* scenes stay put */ }
     }
     cctx.restore();
     const graded = gradePanel(content, w, h, grade);
